@@ -65,15 +65,6 @@
 
 struct arp_hdr {
   struct uip_eth_hdr ethhdr;
-  u16_t hwtype;
-  u16_t protocol;
-  u8_t hwlen;
-  u8_t protolen;
-  u16_t opcode;
-  struct uip_eth_addr shwaddr;
-  u16_t sipaddr[2];
-  struct uip_eth_addr dhwaddr;
-  u16_t dipaddr[2];
 };
 
 struct ethip_hdr {
