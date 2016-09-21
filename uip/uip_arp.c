@@ -64,22 +64,31 @@
 #include <string.h>
 
 struct arp_hdr {
-  struct uip_eth_hdr ethhdr;
+  struct uip_eth_hdr ethhdr;  // 二层协议帧头(目的MAC地址[6字节]，源MAC地址[6字节]，协议类型[2字节])
+  u16_t hwtype;     // 硬件类型
+  u16_t protocol;   // 协议类型
+  u8_t hwlen;       // 硬件地址长度
+  u8_t protolen;    // 协议长度
+  u16_t opcode;     // 操作类型
+  struct uip_eth_addr shwaddr;  // 发送方硬件地址
+  u16_t sipaddr[2];             // 发送方IP地址
+  struct uip_eth_addr dhwaddr;  // 目标硬件地址
+  u16_t dipaddr[2];             // 目标IP地址
 };
 
 struct ethip_hdr {
-  struct uip_eth_hdr ethhdr;
+  struct uip_eth_hdr ethhdr;  // 二层协议帧头(目的MAC地址[6字节]，源MAC地址[6字节]，协议类型[2字节])
   /* IP header. */
-  u8_t vhl,
-    tos,
-    len[2],
-    ipid[2],
-    ipoffset[2],
-    ttl,
-    proto;
-  u16_t ipchksum;
-  u16_t srcipaddr[2],
-    destipaddr[2];
+  u8_t vhl,       // 4位版本，4位首部长度
+    tos,          // 8位服务类型
+    len[2],       // 16位总长度（字节数）
+    ipid[2],      // 16位标识
+    ipoffset[2],  // 3位标志，13位片偏移
+    ttl,          // 8位生存时间
+    proto;        // 8位协议
+  u16_t ipchksum; // 16位首部检验和
+  u16_t srcipaddr[2], // 32位源IP地址
+    destipaddr[2];    // 32位目的IP地址
 };
 
 #define ARP_REQUEST 1
